@@ -20,6 +20,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 // r_main.c
+#include <stdio.h>  
+#include "quakedef.h"
+
+FILE _iob[3];
+
+FILE * __iob_func(void)
+{
+	_iob[0] = *stdin;
+	_iob[1] = *stdout;
+	_iob[2] = *stderr;
+	return _iob;
+}
 
 #include "quakedef.h"
 
