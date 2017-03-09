@@ -36,5 +36,5 @@ char *PL_GetClipboardData (void);
 /* show an error dialog */
 void PL_ErrorDialog(const char *text);
 
-#endif	/* _QUAKE_PLATFORM_H */
+#endif  /* _QUAKE_PLATFORM_H */
 

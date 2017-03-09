@@ -28,32 +28,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #if defined(_WIN32)
 #ifdef _MSC_VER
 #  pragma warning(disable:4244)
-	/* 'argument'	: conversion from 'type1' to 'type2',
-			  possible loss of data */
+  /* 'argument'  : conversion from 'type1' to 'type2',
+        possible loss of data */
 #  pragma warning(disable:4305)
-	/* 'identifier'	: truncation from 'type1' to 'type2' */
-	/*  in our case, truncation from 'double' to 'float' */
+  /* 'identifier'  : truncation from 'type1' to 'type2' */
+  /*  in our case, truncation from 'double' to 'float' */
 #  pragma warning(disable:4267)
-	/* 'var'	: conversion from 'size_t' to 'type',
-			  possible loss of data (/Wp64 warning) */
-#endif	/* _MSC_VER */
-#endif	/* _WIN32 */
+  /* 'var'  : conversion from 'size_t' to 'type',
+        possible loss of data (/Wp64 warning) */
+#endif  /* _MSC_VER */
+#endif  /* _WIN32 */
 
-#undef	min
-#undef	max
-#define	q_min(a, b)	(((a) < (b)) ? (a) : (b))
-#define	q_max(a, b)	(((a) > (b)) ? (a) : (b))
-#define	CLAMP(_minval, x, _maxval)		\
-	((x) < (_minval) ? (_minval) :		\
-	 (x) > (_maxval) ? (_maxval) : (x))
+#undef  min
+#undef  max
+#define  q_min(a, b)  (((a) < (b)) ? (a) : (b))
+#define  q_max(a, b)  (((a) > (b)) ? (a) : (b))
+#define  CLAMP(_minval, x, _maxval)    \
+  ((x) < (_minval) ? (_minval) :    \
+   (x) > (_maxval) ? (_maxval) : (x))
 
 typedef struct sizebuf_s
 {
-	qboolean	allowoverflow;	// if false, do a Sys_Error
-	qboolean	overflowed;		// set to true if the buffer size failed
-	byte		*data;
-	int		maxsize;
-	int		cursize;
+  qboolean  allowoverflow;  // if false, do a Sys_Error
+  qboolean  overflowed;    // set to true if the buffer size failed
+  byte    *data;
+  int    maxsize;
+  int    cursize;
 } sizebuf_t;
 
 void SZ_Alloc (sizebuf_t *buf, int startsize);
@@ -61,13 +61,13 @@ void SZ_Free (sizebuf_t *buf);
 void SZ_Clear (sizebuf_t *buf);
 void *SZ_GetSpace (sizebuf_t *buf, int length);
 void SZ_Write (sizebuf_t *buf, const void *data, int length);
-void SZ_Print (sizebuf_t *buf, const char *data);	// strcats onto the sizebuf
+void SZ_Print (sizebuf_t *buf, const char *data);  // strcats onto the sizebuf
 
 //============================================================================
 
 typedef struct link_s
 {
-	struct link_s	*prev, *next;
+  struct link_s  *prev, *next;
 } link_t;
 
 
@@ -79,18 +79,18 @@ void InsertLinkAfter (link_t *l, link_t *after);
 // (type *)STRUCT_FROM_LINK(link_t *link, type, member)
 // ent = STRUCT_FROM_LINK(link,entity_t,order)
 // FIXME: remove this mess!
-#define	STRUCT_FROM_LINK(l,t,m) ((t *)((byte *)l - (intptr_t)&(((t *)0)->m)))
+#define  STRUCT_FROM_LINK(l,t,m) ((t *)((byte *)l - (intptr_t)&(((t *)0)->m)))
 
 //============================================================================
 
-extern	qboolean		host_bigendian;
+extern  qboolean    host_bigendian;
 
-extern	short	(*BigShort) (short l);
-extern	short	(*LittleShort) (short l);
-extern	int	(*BigLong) (int l);
-extern	int	(*LittleLong) (int l);
-extern	float	(*BigFloat) (float l);
-extern	float	(*LittleFloat) (float l);
+extern  short  (*BigShort) (short l);
+extern  short  (*LittleShort) (short l);
+extern  int  (*BigLong) (int l);
+extern  int  (*LittleLong) (int l);
+extern  float  (*BigFloat) (float l);
+extern  float  (*LittleFloat) (float l);
 
 //============================================================================
 
@@ -104,8 +104,8 @@ void MSG_WriteCoord (sizebuf_t *sb, float f, unsigned int flags);
 void MSG_WriteAngle (sizebuf_t *sb, float f, unsigned int flags);
 void MSG_WriteAngle16 (sizebuf_t *sb, float f, unsigned int flags); //johnfitz
 
-extern	int			msg_readcount;
-extern	qboolean	msg_badread;		// set if a read goes beyond end of message
+extern  int      msg_readcount;
+extern  qboolean  msg_badread;    // set if a read goes beyond end of message
 
 void MSG_BeginReading (void);
 int MSG_ReadChar (void);
@@ -131,7 +131,7 @@ char *Q_strrchr (const char *s, char c);
 void Q_strcat (char *dest, const char *src);
 int Q_strcmp (const char *s1, const char *s2);
 int Q_strncmp (const char *s1, const char *s2, int count);
-int	Q_atoi (const char *str);
+int  Q_atoi (const char *str);
 float Q_atof (const char *str);
 
 
@@ -148,20 +148,20 @@ extern char *q_strupr (char *str);
 /* snprintf, vsnprintf : always use our versions. */
 extern int q_snprintf (char *str, size_t size, const char *format, ...) __attribute__((__format__(__printf__,3,4)));
 extern int q_vsnprintf(char *str, size_t size, const char *format, va_list args)
-									__attribute__((__format__(__printf__,3,0)));
+                  __attribute__((__format__(__printf__,3,0)));
 
 //============================================================================
 
-extern	char		com_token[1024];
-extern	qboolean	com_eof;
+extern  char    com_token[1024];
+extern  qboolean  com_eof;
 
 const char *COM_Parse (const char *data);
 
 
-extern	int		com_argc;
-extern	char	**com_argv;
+extern  int    com_argc;
+extern  char  **com_argv;
 
-extern	int		safemode;
+extern  int    safemode;
 /* safe mode: in true, the engine will behave as if one
    of these arguments were actually on the command line:
    -nosound, -nocdaudio, -nomidi, -stdvid, -dibonly,
@@ -194,26 +194,26 @@ char *va (const char *format, ...) __attribute__((__format__(__printf__,1,2)));
 // QUAKEFS
 typedef struct
 {
-	char	name[MAX_QPATH];
-	int		filepos, filelen;
+  char  name[MAX_QPATH];
+  int    filepos, filelen;
 } packfile_t;
 
 typedef struct pack_s
 {
-	char	filename[MAX_OSPATH];
-	int		handle;
-	int		numfiles;
-	packfile_t	*files;
+  char  filename[MAX_OSPATH];
+  int    handle;
+  int    numfiles;
+  packfile_t  *files;
 } pack_t;
 
 typedef struct searchpath_s
 {
-	unsigned int path_id;	// identifier assigned to the game directory
-					// Note that <install_dir>/game1 and
-					// <userdir>/game1 have the same id.
-	char	filename[MAX_OSPATH];
-	pack_t	*pack;			// only one of filename / pack will be used
-	struct searchpath_s	*next;
+  unsigned int path_id;  // identifier assigned to the game directory
+          // Note that <install_dir>/game1 and
+          // <userdir>/game1 have the same id.
+  char  filename[MAX_OSPATH];
+  pack_t  *pack;      // only one of filename / pack will be used
+  struct searchpath_s  *next;
 } searchpath_t;
 
 extern searchpath_t *com_searchpaths;
@@ -222,9 +222,9 @@ extern searchpath_t *com_base_searchpaths;
 extern int com_filesize;
 struct cache_user_s;
 
-extern	char	com_basedir[MAX_OSPATH];
-extern	char	com_gamedir[MAX_OSPATH];
-extern	int	file_from_pak;	// global indicating that file came from a pak
+extern  char  com_basedir[MAX_OSPATH];
+extern  char  com_gamedir[MAX_OSPATH];
+extern  int  file_from_pak;  // global indicating that file came from a pak
 
 void COM_WriteFile (const char *filename, const void *data, int len);
 int COM_OpenFile (const char *filename, int *handle, unsigned int *path_id);
@@ -236,21 +236,21 @@ void COM_CloseFile (int h);
 // buffer. the buffer is allocated with a total size of com_filesize + 1. the
 // procedures differ by their buffer allocation method.
 byte *COM_LoadStackFile (const char *path, void *buffer, int bufsize,
-						unsigned int *path_id);
-	// uses the specified stack stack buffer with the specified size
-	// of bufsize. if bufsize is too short, uses temp hunk. the bufsize
-	// must include the +1
+            unsigned int *path_id);
+  // uses the specified stack stack buffer with the specified size
+  // of bufsize. if bufsize is too short, uses temp hunk. the bufsize
+  // must include the +1
 byte *COM_LoadTempFile (const char *path, unsigned int *path_id);
-	// allocates the buffer on the temp hunk.
+  // allocates the buffer on the temp hunk.
 byte *COM_LoadHunkFile (const char *path, unsigned int *path_id);
-	// allocates the buffer on the hunk.
+  // allocates the buffer on the hunk.
 byte *COM_LoadZoneFile (const char *path, unsigned int *path_id);
-	// allocates the buffer on the zone.
+  // allocates the buffer on the zone.
 void COM_LoadCacheFile (const char *path, struct cache_user_s *cu,
-						unsigned int *path_id);
-	// uses cache mem for allocating the buffer.
+            unsigned int *path_id);
+  // uses cache mem for allocating the buffer.
 byte *COM_LoadMallocFile (const char *path, unsigned int *path_id);
-	// allocates the buffer on the system mem (malloc).
+  // allocates the buffer on the system mem (malloc).
 
 /* The following FS_*() stdio replacements are necessary if one is
  * to perform non-sequential reads on files reopened on pak files
@@ -260,11 +260,11 @@ byte *COM_LoadMallocFile (const char *path, unsigned int *path_id);
 
 typedef struct _fshandle_t
 {
-	FILE *file;
-	qboolean pak;	/* is the file read from a pak */
-	long start;	/* file or data start position */
-	long length;	/* file or data size */
-	long pos;	/* current position relative to start */
+  FILE *file;
+  qboolean pak;  /* is the file read from a pak */
+  long start;  /* file or data start position */
+  long length;  /* file or data size */
+  long pos;  /* current position relative to start */
 } fshandle_t;
 
 size_t FS_fread(void *ptr, size_t size, size_t nmemb, fshandle_t *fh);
@@ -279,10 +279,10 @@ char *FS_fgets(char *s, int size, fshandle_t *fh);
 long FS_filelength (fshandle_t *fh);
 
 
-extern struct cvar_s	registered;
-extern qboolean		standard_quake, rogue, hipnotic;
-extern qboolean		fitzmode;
-	/* if true, run in fitzquake mode disabling custom quakespasm hacks */
+extern struct cvar_s  registered;
+extern qboolean    standard_quake, rogue, hipnotic;
+extern qboolean    fitzmode;
+  /* if true, run in fitzquake mode disabling custom quakespasm hacks */
 
-#endif	/* _Q_COMMON_H */
+#endif  /* _Q_COMMON_H */
 

@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <math.h>
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
+#define M_PI    3.14159265358979323846  // matches value in gcc v2 math.h
 #endif
 
 #define M_PI_DIV_180 (M_PI / 180.0) //johnfitz
@@ -38,14 +38,14 @@ struct mplane_s;
 
 extern vec3_t vec3_origin;
 
-#define	nanmask		(255 << 23)	/* 7F800000 */
-#if 0	/* macro is violating strict aliasing rules */
-#define	IS_NAN(x)	(((*(int *) (char *) &x) & nanmask) == nanmask)
+#define  nanmask    (255 << 23)  /* 7F800000 */
+#if 0  /* macro is violating strict aliasing rules */
+#define  IS_NAN(x)  (((*(int *) (char *) &x) & nanmask) == nanmask)
 #else
 static inline int IS_NAN (float x) {
-	union { float f; int i; } num;
-	num.f = x;
-	return ((num.i & nanmask) == nanmask);
+  union { float f; int i; } num;
+  num.f = x;
+  return ((num.i & nanmask) == nanmask);
 }
 #endif
 
@@ -61,14 +61,14 @@ static inline int IS_NAN (float x) {
 // QuakeSpasm: To avoid strict aliasing violations, use a float/int union instead of type punning.
 #define VectorNormalizeFast(_v)\
 {\
-	union { float f; int i; } _y, _number;\
-	_number.f = DotProduct(_v, _v);\
-	if (_number.f != 0.0)\
-	{\
-		_y.i = 0x5f3759df - (_number.i >> 1);\
-		_y.f = _y.f * (1.5f - (_number.f * 0.5f * _y.f * _y.f));\
-		VectorScale(_v, _y.f, _v);\
-	}\
+  union { float f; int i; } _y, _number;\
+  _number.f = DotProduct(_v, _v);\
+  if (_number.f != 0.0)\
+  {\
+    _y.i = 0x5f3759df - (_number.i >> 1);\
+    _y.f = _y.f * (1.5f - (_number.f * 0.5f * _y.f * _y.f));\
+    VectorScale(_v, _y.f, _v);\
+  }\
 }
 
 void TurnVector (vec3_t out, const vec3_t forward, const vec3_t side, float angle); //johnfitz
@@ -84,7 +84,7 @@ void _VectorCopy (vec3_t in, vec3_t out);
 int VectorCompare (vec3_t v1, vec3_t v2);
 vec_t VectorLength (vec3_t v);
 void CrossProduct (vec3_t v1, vec3_t v2, vec3_t cross);
-float VectorNormalize (vec3_t v);		// returns vector length
+float VectorNormalize (vec3_t v);    // returns vector length
 void VectorInverse (vec3_t v);
 void VectorScale (vec3_t in, vec_t scale, vec3_t out);
 int Q_log2(int val);
@@ -93,30 +93,30 @@ void R_ConcatRotations (float in1[3][3], float in2[3][3], float out[3][3]);
 void R_ConcatTransforms (float in1[3][4], float in2[3][4], float out[3][4]);
 
 void FloorDivMod (double numer, double denom, int *quotient,
-		int *rem);
+    int *rem);
 fixed16_t Invert24To16(fixed16_t val);
 int GreatestCommonDivisor (int i1, int i2);
 
 void AngleVectors (vec3_t angles, vec3_t forward, vec3_t right, vec3_t up);
 int BoxOnPlaneSide (vec3_t emins, vec3_t emaxs, struct mplane_s *plane);
-float	anglemod(float a);
+float  anglemod(float a);
 
 
-#define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
-	(((p)->type < 3)?						\
-	(										\
-		((p)->dist <= (emins)[(p)->type])?	\
-			1								\
-		:									\
-		(									\
-			((p)->dist >= (emaxs)[(p)->type])?\
-				2							\
-			:								\
-				3							\
-		)									\
-	)										\
-	:										\
-		BoxOnPlaneSide( (emins), (emaxs), (p)))
+#define BOX_ON_PLANE_SIDE(emins, emaxs, p)  \
+  (((p)->type < 3)?            \
+  (                    \
+    ((p)->dist <= (emins)[(p)->type])?  \
+      1                \
+    :                  \
+    (                  \
+      ((p)->dist >= (emaxs)[(p)->type])?\
+        2              \
+      :                \
+        3              \
+    )                  \
+  )                    \
+  :                    \
+    BoxOnPlaneSide( (emins), (emaxs), (p)))
 
-#endif	/* __MATHLIB_H */
+#endif  /* __MATHLIB_H */
 

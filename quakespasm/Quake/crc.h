@@ -29,5 +29,5 @@ void CRC_ProcessByte(unsigned short *crcvalue, byte data);
 unsigned short CRC_Value(unsigned short crcvalue);
 unsigned short CRC_Block (byte *start, int count); //johnfitz -- texture crc
 
-#endif	/* _QUAKE_CRC_H */
+#endif  /* _QUAKE_CRC_H */
 

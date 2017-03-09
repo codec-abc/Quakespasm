@@ -41,5 +41,5 @@ int  WINS_AddrCompare (struct qsockaddr *addr1, struct qsockaddr *addr2);
 int  WINS_GetSocketPort (struct qsockaddr *addr);
 int  WINS_SetSocketPort (struct qsockaddr *addr, int port);
 
-#endif	/* __NET_WINSOCK_H */
+#endif  /* __NET_WINSOCK_H */
 

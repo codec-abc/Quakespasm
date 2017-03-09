@@ -32,5 +32,5 @@ byte *Image_LoadImage (const char *name, int *width, int *height);
 
 qboolean Image_WriteTGA (const char *name, byte *data, int width, int height, int bpp, qboolean upsidedown);
 
-#endif	/* __GL_IMAGE_H */
+#endif  /* __GL_IMAGE_H */
 

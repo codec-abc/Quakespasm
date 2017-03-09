@@ -22,5 +22,5 @@
 #endif
 #endif
 
-#endif	/* _QUAKE_RESOURCE_H */
+#endif  /* _QUAKE_RESOURCE_H */
 

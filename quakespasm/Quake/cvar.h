@@ -32,8 +32,8 @@ it is sufficient to initialize a cvar_t with just the first two fields,
 or you can add a ,true flag for variables that you want saved to the
 configuration file when the game is quit:
 
-cvar_t	r_draworder = {"r_draworder","1"};
-cvar_t	scr_screensize = {"screensize","1",true};
+cvar_t  r_draworder = {"r_draworder","1"};
+cvar_t  scr_screensize = {"screensize","1",true};
 
 Cvars must be registered before use, or they will have a 0 value instead
 of the float interpretation of the string.
@@ -55,54 +55,54 @@ teamplay = cvar("teamplay");
 cvar_set ("registered", "1");
 
 The user can access cvars from the console in two ways:
-r_draworder		prints the current value
-r_draworder 0		sets the current value to 0
+r_draworder    prints the current value
+r_draworder 0    sets the current value to 0
 
 Cvars are restricted from having the same names as commands to keep this
 interface from being ambiguous.
 
 */
 
-#define	CVAR_NONE		0
-#define	CVAR_ARCHIVE		(1U << 0)	// if set, causes it to be saved to config
-#define	CVAR_NOTIFY		(1U << 1)	// changes will be broadcasted to all players (q1)
-#define	CVAR_SERVERINFO		(1U << 2)	// added to serverinfo will be sent to clients (q1/net_dgrm.c and qwsv)
-#define	CVAR_USERINFO		(1U << 3)	// added to userinfo, will be sent to server (qwcl)
-#define	CVAR_CHANGED		(1U << 4)
-#define	CVAR_ROM		(1U << 6)
-#define	CVAR_LOCKED		(1U << 8)	// locked temporarily
-#define	CVAR_REGISTERED		(1U << 10)	// the var is added to the list of variables
-#define	CVAR_CALLBACK		(1U << 16)	// var has a callback
+#define  CVAR_NONE    0
+#define  CVAR_ARCHIVE    (1U << 0)  // if set, causes it to be saved to config
+#define  CVAR_NOTIFY    (1U << 1)  // changes will be broadcasted to all players (q1)
+#define  CVAR_SERVERINFO    (1U << 2)  // added to serverinfo will be sent to clients (q1/net_dgrm.c and qwsv)
+#define  CVAR_USERINFO    (1U << 3)  // added to userinfo, will be sent to server (qwcl)
+#define  CVAR_CHANGED    (1U << 4)
+#define  CVAR_ROM    (1U << 6)
+#define  CVAR_LOCKED    (1U << 8)  // locked temporarily
+#define  CVAR_REGISTERED    (1U << 10)  // the var is added to the list of variables
+#define  CVAR_CALLBACK    (1U << 16)  // var has a callback
 
 
 typedef void (*cvarcallback_t) (struct cvar_s *);
 
 typedef struct cvar_s
 {
-	const char	*name;
-	const char	*string;
-	unsigned int	flags;
-	float		value;
-	const char	*default_string; //johnfitz -- remember defaults for reset function
-	cvarcallback_t	callback;
-	struct cvar_s	*next;
+  const char  *name;
+  const char  *string;
+  unsigned int  flags;
+  float    value;
+  const char  *default_string; //johnfitz -- remember defaults for reset function
+  cvarcallback_t  callback;
+  struct cvar_s  *next;
 } cvar_t;
 
-void	Cvar_RegisterVariable (cvar_t *variable);
+void  Cvar_RegisterVariable (cvar_t *variable);
 // registers a cvar that already has the name, string, and optionally
 // the archive elements set.
 
 void Cvar_SetCallback (cvar_t *var, cvarcallback_t func);
 // set a callback function to the var
 
-void	Cvar_Set (const char *var_name, const char *value);
+void  Cvar_Set (const char *var_name, const char *value);
 // equivelant to "<name> <variable>" typed at the console
 
-void	Cvar_SetValue (const char *var_name, const float value);
+void  Cvar_SetValue (const char *var_name, const float value);
 // expands value to a string and calls Cvar_Set
 
-void	Cvar_SetROM (const char *var_name, const char *value);
-void	Cvar_SetValueROM (const char *var_name, const float value);
+void  Cvar_SetROM (const char *var_name, const char *value);
+void  Cvar_SetValueROM (const char *var_name, const float value);
 // sets a CVAR_ROM variable from within the engine
 
 void Cvar_SetQuick (cvar_t *var, const char *value);
@@ -111,7 +111,7 @@ void Cvar_SetValueQuick (cvar_t *var, const float value);
 // but are otherwise identical to the "non-Quick" versions.
 // the cvar MUST be registered.
 
-float	Cvar_VariableValue (const char *var_name);
+float  Cvar_VariableValue (const char *var_name);
 // returns 0 if not defined or non numeric
 
 const char *Cvar_VariableString (const char *var_name);
@@ -122,22 +122,22 @@ qboolean Cvar_Command (void);
 // command.  Returns true if the command was a variable reference that
 // was handled. (print or change)
 
-void	Cvar_WriteVariables (FILE *f);
+void  Cvar_WriteVariables (FILE *f);
 // Writes lines containing "set variable value" for all variables
 // with the CVAR_ARCHIVE flag set
 
-cvar_t	*Cvar_FindVar (const char *var_name);
-cvar_t	*Cvar_FindVarAfter (const char *prev_name, unsigned int with_flags);
+cvar_t  *Cvar_FindVar (const char *var_name);
+cvar_t  *Cvar_FindVarAfter (const char *prev_name, unsigned int with_flags);
 
-void	Cvar_LockVar (const char *var_name);
-void	Cvar_UnlockVar (const char *var_name);
-void	Cvar_UnlockAll (void);
+void  Cvar_LockVar (const char *var_name);
+void  Cvar_UnlockVar (const char *var_name);
+void  Cvar_UnlockAll (void);
 
-void	Cvar_Init (void);
+void  Cvar_Init (void);
 
-const char	*Cvar_CompleteVariable (const char *partial);
+const char  *Cvar_CompleteVariable (const char *partial);
 // attempts to match a partial variable name for command line completion
 // returns NULL if nothing fits
 
-#endif	/* __CVAR_H__ */
+#endif  /* __CVAR_H__ */
 

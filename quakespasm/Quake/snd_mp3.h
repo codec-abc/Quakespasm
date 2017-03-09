@@ -7,7 +7,7 @@
 
 extern snd_codec_t mp3_codec;
 
-#endif	/* USE_CODEC_MP3 */
+#endif  /* USE_CODEC_MP3 */
 
-#endif	/* ! _SND_MP3_H_ */
+#endif  /* ! _SND_MP3_H_ */
 
